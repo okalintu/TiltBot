@@ -2,6 +2,7 @@ import json
 import logging
 import requests
 from rediscache import RedisCache
+from riotdata import ChampionData
 import time
 
 # hoba summoner id: 21768137
@@ -47,6 +48,7 @@ class RiotApi:
         # we got some error. lets quit
 
         if resp.status_code not in range(200, 300):
+            self.logger.error("error with request code %s: %s", resp.status_code, resp.content)
             raise RitoPlsError(f'Getting data with {self.__class__} failed with status code {resp.status_code}')
         # all ok. proceed to decode response
         return self._decode_response(resp.content)
@@ -98,8 +100,8 @@ if __name__ == '__main__':
     logger.addHandler(sh)
     
     # Initialize apis
-    champ_api =  ChampionApi()
-    champions = RedisCache('league_champs_',champ_api.get)
+
+    champions = ChampionData()
 
     match_api = MatchApi()
     matches = RedisCache('matches_', match_api.get)

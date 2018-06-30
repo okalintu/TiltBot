@@ -3,7 +3,18 @@ import redis
 import logging
 import base64
 
-class RedisCache:
+
+class SerializerMixin:
+
+    @staticmethod
+    def _serialize(item):
+        return base64.b64encode(json.dumps(item).encode('utf-8'))
+    @staticmethod
+    def _deserialize(item):
+        return json.loads(base64.b64decode(item).decode('utf-8'))
+
+
+class RedisCache(SerializerMixin):
     def __init__(self, prefix, get_value, expire_time=None, host='127.0.0.1', port=6379, db=0):
         self.logger = logging.getLogger('TiltBot')
         self.redis = redis.Redis(host=host, port=port, db=db)
@@ -31,9 +42,4 @@ class RedisCache:
             return self.redis.setex(redis_key, self._serialize(value), self.expire_time)
         return self.redis.set(redis_key, self._serialize(value))
         
-    @staticmethod
-    def _serialize(item):
-        return base64.b64encode(json.dumps(item).encode('utf-8'))
-    @staticmethod
-    def _deserialize(item):
-        return json.loads(base64.b64decode(item).decode('utf-8'))
+   
