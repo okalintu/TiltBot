@@ -1,0 +1,164 @@
+{
+    "gameId": 3686465561,
+    "gameStartTime": 1530300078232,
+    "gameMode": "CLASSIC",
+    "participants": [
+        {
+            "championId": 110,
+            "summonerName": "Hobiiri",
+            "spell2Id": 4,
+            "teamId": 100,
+            "spell1Id": 7,
+            "summonerId": 21768137
+        },
+        {
+            "profileIconId": 1232,
+            "championId": 245,
+            "summonerName": "Theblackfire15",
+            "gameCustomizationObjects": [],
+            "spell2Id": 4,
+            "teamId": 100,
+            "spell1Id": 12,
+            "summonerId": 73641207
+        },
+        {
+            "championId": 117,
+            "summonerName": "Sheepshooter",
+            "spell2Id": 14,
+            "teamId": 100,
+            "spell1Id": 4,
+            "summonerId": 27447234
+        },
+        {
+            "profileIconId": 662,
+            "championId": 77,
+            "summonerName": "Hoybu",
+            "gameCustomizationObjects": [],
+            "spell2Id": 11,
+            "teamId": 100,
+            "spell1Id": 4,
+            "summonerId": 29887852
+        },
+        {
+            "profileIconId": 1225,
+            "championId": 75,
+            "summonerName": "FloradieMagische",
+            "spell2Id": 12,
+            "teamId": 100,
+            "spell1Id": 4,
+            "summonerId": 83187129
+        },
+        {
+            "profileIconId": 539,
+            "championId": 17,
+            "summonerName": "CritOwn",
+            "spell2Id": 4,
+            "teamId": 200,
+            "spell1Id": 14,
+            "summonerId": 22368366
+        },
+        {
+            "profileIconId": 6,
+            "championId": 96,
+            "summonerName": "DurektorCafe",
+            "spell2Id": 4,
+            "teamId": 200,
+            "spell1Id": 7,
+            "summonerId": 94197990
+        },
+        {
+            "profileIconId": 2072,
+            "championId": 72,
+            "summonerName": "DuVerlürsch",
+            "spell2Id": 11,
+            "teamId": 200,
+            "spell1Id": 4,
+            "summonerId": 43532236
+        },
+        {
+            "profileIconId": 3501,
+            "championId": 555,
+            "summonerName": "G0V1",
+            "gameCustomizationObjects": [],
+            "bot": false,
+            "perks": {
+                "perkStyle": 8400,
+                "perkIds": [
+                    8439,
+                    8473,
+                    8472,
+                    8453,
+                    8143,
+                    8106
+                ],
+                "perkSubStyle": 8100
+            },
+            "spell2Id": 4,
+            "teamId": 200,
+            "spell1Id": 14,
+            "summonerId": 86818162
+        },
+        {
+            "profileIconId": 3015,
+            "championId": 131,
+            "summonerName": "Pikaezz",
+            "spell2Id": 14,
+            "teamId": 200,
+            "spell1Id": 4,
+            "summonerId": 110326944
+        }
+    ],
+    "gameLength": 9,
+    "bannedChampions": [
+        {
+            "teamId": 100,
+            "championId": 145,
+            "pickTurn": 1
+        },
+        {
+            "teamId": 100,
+            "championId": 142,
+            "pickTurn": 2
+        },
+        {
+            "teamId": 100,
+            "championId": 238,
+            "pickTurn": 3
+        },
+        {
+            "teamId": 100,
+            "championId": 29,
+            "pickTurn": 4
+        },
+        {
+            "teamId": 100,
+            "championId": 11,
+            "pickTurn": 5
+        },
+        {
+            "teamId": 200,
+            "championId": 105,
+            "pickTurn": 6
+        },
+        {
+            "teamId": 200,
+            "championId": 99,
+            "pickTurn": 7
+        },
+        {
+            "teamId": 200,
+            "championId": 36,
+            "pickTurn": 8
+        },
+        {
+            "teamId": 200,
+            "championId": 157,
+            "pickTurn": 9
+        },
+        {
+            "teamId": 200,
+            "championId": 53,
+            "pickTurn": 10
+        }
+    ]
+}

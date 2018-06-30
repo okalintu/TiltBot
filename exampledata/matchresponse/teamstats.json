@@ -1,0 +1,80 @@
+{"teams": [
+    {
+        "firstDragon": false,
+        "bans": [
+            {
+                "pickTurn": 1,
+                "championId": 63
+            },
+            {
+                "pickTurn": 2,
+                "championId": 80
+            },
+            {
+                "pickTurn": 3,
+                "championId": 90
+            },
+            {
+                "pickTurn": 4,
+                "championId": 11
+            },
+            {
+                "pickTurn": 5,
+                "championId": 39
+            }
+        ],
+        "firstInhibitor": false,
+        "win": "Fail",
+        "firstRiftHerald": false,
+        "firstBaron": false,
+        "baronKills": 0,
+        "riftHeraldKills": 0,
+        "firstBlood": false,
+        "teamId": 100,
+        "firstTower": false,
+        "vilemawKills": 0,
+        "inhibitorKills": 0,
+        "towerKills": 5,
+        "dominionVictoryScore": 0,
+        "dragonKills": 1
+    },
+    {
+        "firstDragon": true,
+        "bans": [
+            {
+                "pickTurn": 6,
+                "championId": 11
+            },
+            {
+                "pickTurn": 7,
+                "championId": 107
+            },
+            {
+                "pickTurn": 8,
+                "championId": 157
+            },
+            {
+                "pickTurn": 9,
+                "championId": 36
+            },
+            {
+                "pickTurn": 10,
+                "championId": 105
+            }
+        ],
+        "firstInhibitor": true,
+        "win": "Win",
+        "firstRiftHerald": true,
+        "firstBaron": true,
+        "baronKills": 1,
+        "riftHeraldKills": 1,
+        "firstBlood": true,
+        "teamId": 200,
+        "firstTower": true,
+        "vilemawKills": 0,
+        "inhibitorKills": 1,
+        "towerKills": 9,
+        "dominionVictoryScore": 0,
+        "dragonKills": 2
+    }
+]}

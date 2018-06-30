@@ -1,0 +1,65 @@
+{"participants": [
+    {
+        "championId": 127,
+        "stats": {
+            "participantId": 1,
+            "win": false,
+            "kills": 11,
+            "assists": 4,
+            "deaths": 5,
+            "largestMultiKill": 1,
+            "champLevel": 16,
+            "goldEarned": 13676,
+            "totalMinionsKilled": 223,
+            "totalDamageDealtToChampions": 25979,
+            "totalDamageTaken": 24798,
+            "longestTimeSpentLiving": 628
+        },
+        "participantId": 1,
+        "spell1Id": 4,
+        "spell2Id": 12,
+        "highestAchievedSeasonTier": "SILVER",
+        "teamId": 100,
+        "timeline": {
+            "lane": "MIDDLE",
+            "role": "SOLO",
+            "participantId": 1,
+            "csDiffPerMinDeltas": {
+                "20-30": 3.9,
+                "0-10": -0.3000000000000007,
+                "10-20": 1.3000000000000003
+            },
+            "goldPerMinDeltas": {
+                "20-30": 695.5,
+                "0-10": 235,
+                "10-20": 386.7
+            },
+            "xpDiffPerMinDeltas": {
+                "20-30": 364.8,
+                "0-10": -11.700000000000017,
+                "10-20": -46.79999999999998
+            },
+            "creepsPerMinDeltas": {
+                "20-30": 7.9,
+                "0-10": 7.1,
+                "10-20": 7.300000000000001
+            },
+            "xpPerMinDeltas": {
+                "20-30": 744.1,
+                "0-10": 423.79999999999995,
+                "10-20": 443.6
+            },
+            "damageTakenDiffPerMinDeltas": {
+                "20-30": 359.5,
+                "0-10": 97.2,
+                "10-20": 429.4
+            },
+            "damageTakenPerMinDeltas": {
+                "20-30": 1224,
+                "0-10": 373.3,
+                "10-20": 882.5
+            }
+        }
+    }
+    ]
+}

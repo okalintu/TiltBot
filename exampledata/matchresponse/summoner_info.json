@@ -1,0 +1,133 @@
+{
+    "participantIdentities": [
+    {
+        "player": {
+            "currentPlatformId": "EUW1",
+            "summonerName": "Śtarboy",
+            "matchHistoryUri": "/v1/stats/player_history/EUW1/41992415",
+            "platformId": "EUW1",
+            "currentAccountId": 41992415,
+            "profileIcon": 3006,
+            "summonerId": 39645915,
+            "accountId": 41992415
+        },
+        "participantId": 1
+    },
+    {
+        "player": {
+            "currentPlatformId": "EUW1",
+            "summonerName": "Jollai",
+            "matchHistoryUri": "/v1/stats/player_history/EUW1/28708032",
+            "platformId": "EUW1",
+            "currentAccountId": 28708032,
+            "profileIcon": 22,
+            "summonerId": 24411524,
+            "accountId": 28708032
+        },
+        "participantId": 2
+    },
+    {
+        "player": {
+            "currentPlatformId": "EUW1",
+            "summonerName": "MasterFoxer",
+            "matchHistoryUri": "/v1/stats/player_history/EUW1/234951300",
+            "platformId": "EUW1",
+            "currentAccountId": 234951300,
+            "profileIcon": 3398,
+            "summonerId": 102569413,
+            "accountId": 234951300
+        },
+        "participantId": 3
+    },
+    {
+        "player": {
+            "currentPlatformId": "EUW1",
+            "summonerName": "GG JESUS HAD GA",
+            "matchHistoryUri": "/v1/stats/player_history/EUW1/30567224",
+            "platformId": "EUW1",
+            "currentAccountId": 30567224,
+            "profileIcon": 513,
+            "summonerId": 26339116,
+            "accountId": 30567224
+        },
+        "participantId": 4
+    },
+    {
+        "player": {
+            "currentPlatformId": "EUW1",
+            "summonerName": "Harsh Lesson",
+            "matchHistoryUri": "/v1/stats/player_history/euw1/241080297",
+            "platformId": "euw1",
+            "currentAccountId": 241080297,
+            "profileIcon": 3465,
+            "summonerId": 109468472,
+            "accountId": 241080297
+        },
+        "participantId": 5
+    },
+    {
+        "player": {
+            "currentPlatformId": "EUW1",
+            "summonerName": "Jack0Dee",
+            "matchHistoryUri": "/v1/stats/player_history/EUW1/26726959",
+            "platformId": "EUW1",
+            "currentAccountId": 26726959,
+            "profileIcon": 9,
+            "summonerId": 22751937,
+            "accountId": 26726959
+        },
+        "participantId": 6
+    },
+    {
+        "player": {
+            "currentPlatformId": "EUW1",
+            "summonerName": "DerHerrDerSalze",
+            "matchHistoryUri": "/v1/stats/player_history/EUW1/212942101",
+            "platformId": "EUW1",
+            "currentAccountId": 212942101,
+            "profileIcon": 3308,
+            "summonerId": 61612512,
+            "accountId": 212942101
+        },
+        "participantId": 7
+    },
+    {
+        "player": {
+            "currentPlatformId": "EUW1",
+            "summonerName": "BIGPROTOS",
+            "matchHistoryUri": "/v1/stats/player_history/EUW1/32846054",
+            "platformId": "EUW1",
+            "currentAccountId": 32846054,
+            "profileIcon": 3541,
+            "summonerId": 29270217,
+            "accountId": 32846054
+        },
+        "participantId": 8
+    },
+    {
+        "player": {
+            "currentPlatformId": "EUW1",
+            "summonerName": "Hobiiri",
+            "matchHistoryUri": "/v1/stats/player_history/EUW1/25407967",
+            "platformId": "EUW1",
+            "currentAccountId": 25407967,
+            "profileIcon": 984,
+            "summonerId": 21768137,
+            "accountId": 25407967
+        },
+        "participantId": 9
+    },
+    {
+        "player": {
+            "currentPlatformId": "EUW1",
+            "summonerName": "Akhenaten",
+            "matchHistoryUri": "/v1/stats/player_history/EUW1/39161664",
+            "platformId": "EUW1",
+            "currentAccountId": 39161664,
+            "profileIcon": 608,
+            "summonerId": 35839926,
+            "accountId": 39161664
+        },
+        "participantId": 10
+    }
+]}
