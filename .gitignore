@@ -1,3 +1,4 @@
 *.key
+data/*
 __pycache__/
 .vscode/
