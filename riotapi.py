@@ -81,14 +81,21 @@ def pretty_print(item) -> None:
 
 def map_key(container : dict, target_key: str, func) -> None:
 
+    print(type(container), container)
     for key in container:
         if key == target_key:
             container[key] = func(container[key])
-        if isinstance(container[key], dict):
+        elif isinstance(container[key], dict):
             map_key(container[key], key, func)
-        if isinstance(container[key], list):
+        elif isinstance(container[key], list):
             for item in container[key]:
                 map_key(item, target_key, func)
+
+def champ_mapper(i):
+    try:
+        return champions[i]
+    except ValueError:
+        return i
 
 if __name__ == '__main__':
 
@@ -113,7 +120,7 @@ if __name__ == '__main__':
     for game_id in game_ids:
         try:
             match = matches[game_id]
-            map_key(match, 'championId', lambda i: champions[i])
+            map_key(match, 'championId', champ_mapper)
             pretty_print(match)
         except RitoPlsError:
             logger.warning('Advertized game %s could not be fetched', game_id)

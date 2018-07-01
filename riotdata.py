@@ -27,7 +27,7 @@ class RiotData(SerializerMixin):
         redis_key = self.get_redis_key(key)
         value = self.redis.get(redis_key)
         if value is None:
-            raise ValueError('Key {redis_key} not in redis')
+            raise ValueError(f'Key {redis_key} not in redis')
         return self._deserialize(value)
 
     def _upload_data(self, data):
