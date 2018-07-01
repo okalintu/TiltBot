@@ -1,3 +1,4 @@
+import re
 import requests
 
 class IncomingTelegramCommand:
@@ -37,14 +38,30 @@ class BaseCommandHandler:
         return message.command.startswith(self.command)
 
     def handle(self, message : IncomingTelegramCommand):
-        self._send_message(message.chat_id, 'Hello!', message.msg_id)
+        self._send_message(message.chat_id, 'Hello!')
 
-    def _send_message(self, chat_id : int, message : str, message_id : int):
+    def _send_message(self, chat_id : int, message : str):
         data = {
             'chat_id': chat_id,
             'text': message, 
         }
         requests.post(self.send_message_url, json=data)
+
+
+class TempHandler(BaseCommandHandler):
+    command = '/temp'
+    pattern = re.compile(r'/temp(@\S+)?\s(?P<summoner_name>.*)$')
+
+    def handle(self, message : IncomingTelegramCommand):
+        match = self.pattern.match(message.command)
+        if not match:
+            err = 'Sorry. could not parse summoner name. usage: /temp <summoner_name>'
+            return self._send_message(message.chat_id, err)
+        name = match.group('summoner_name')
+        msg = f'Requested temperature data with summoner name {name}. temp data is not functional yet :/'
+        return self._send_message(message.chat_id, msg)
+
+
 
 class CommandDelegator:
     def __init__(self):

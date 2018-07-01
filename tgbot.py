@@ -1,10 +1,11 @@
 from flask import Flask, request
-from tgapi import IncomingTelegramCommand, CommandDelegator, BaseCommandHandler
-
+from tgapi import IncomingTelegramCommand, CommandDelegator
+from tgapi import BaseCommandHandler, TempHandler
 app = Flask(__name__)
 
 command_delegator = CommandDelegator()
 command_delegator.register_handler("HelloHandler", BaseCommandHandler())
+command_delegator.register_handler("Temp", TempHandler())
 
 @app.route('/tgbot/')
 def main():
