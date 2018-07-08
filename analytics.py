@@ -161,8 +161,7 @@ class PlayerAnalyzer(LogMixin):
         
         if self.player.was_fed:
             score +=2
-            positives.append(('Player Was fed with stats ' 
-                              '{self.player.kills}/{self.player.deaths}/{self.player.assists}'))
+            positives.append(f'Player Was fed with stats {self.player.kills}/{self.player.deaths}/{self.player.assists}')
 
         # negative influence
         if self.player.died_alot:

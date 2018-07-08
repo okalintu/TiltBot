@@ -8,7 +8,7 @@ class RiotData(LogMixin, SerializerMixin):
     redis_prefix = 'riot_data'
 
     def __init__(self, host='127.0.0.1', port=6379, db=0):
-        self.redis = redis.Redis(host=host, port=port, db=db)
+        self.redis = redis.Redis(unix_socket_path='/tmp/redis.sock', db=db)
 
 
     @classmethod
