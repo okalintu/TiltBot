@@ -1,12 +1,11 @@
 import json
 import logging
+import time
 import requests
 from rediscache import RedisCache
 from riotdata import ChampionData
-import time
+from utils import map_key, pretty_print
 
-# hoba summoner id: 21768137
-# hoba account id: 25407967
 
 class RitoPlsError(RuntimeError):
     pass
@@ -37,7 +36,7 @@ class RiotApi:
             self.logger.warning('Rate limit hit with %s!', self.__class__)
             for head, val in resp.headers.items():
                 if 'Rate' in head:
-                    logger.debug('Header %s: %s', head, val)
+                    self.logger.debug('Header %s: %s', head, val)
             backoff_time = self._get_backoff_time(resp)
             self.logger.warning('Sleeping for %s seconds', backoff_time)
             time.sleep(backoff_time)
@@ -66,6 +65,8 @@ class RiotApi:
             self.backoff = min(self.max_backoff, self.backoff*2)
             return backoff
 
+class SummonerApi(RiotApi):
+    api_url = 'https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'
 
 class MatchListApi(RiotApi):
     api_url = 'https://euw1.api.riotgames.com/lol/match/v3/matchlists/by-account/'
@@ -75,52 +76,3 @@ class MatchApi(RiotApi):
 
 class ChampionApi(RiotApi):
     api_url = 'https://euw1.api.riotgames.com/lol/static-data/v3/champions/'
-
-def pretty_print(item) -> None:
-    print(json.dumps(item, indent=4))
-
-def map_key(container : dict, target_key: str, func) -> None:
-
-    print(type(container), container)
-    for key in container:
-        if key == target_key:
-            container[key] = func(container[key])
-        elif isinstance(container[key], dict):
-            map_key(container[key], key, func)
-        elif isinstance(container[key], list):
-            for item in container[key]:
-                map_key(item, target_key, func)
-
-def champ_mapper(i):
-    try:
-        return champions[i]
-    except ValueError:
-        return i
-
-if __name__ == '__main__':
-
-    # configure logger
-    logger = logging.getLogger('TiltBot')
-    logger.setLevel(logging.DEBUG)
-    sh = logging.StreamHandler()
-    sh.setFormatter(logging.Formatter('[%(asctime)s][%(name)s - %(levelname)-8s] %(message)s'))
-    logger.addHandler(sh)
-    
-    # Initialize apis
-
-    champions = ChampionData()
-
-    match_api = MatchApi()
-    matches = RedisCache('matches_', match_api.get)
-
-    # get last games 
-    match_list = MatchListApi().get(25407967)['matches'][:3]
-    game_ids = [match['gameId'] for match in match_list][:3]
-
-    for game_id in game_ids:
-        try:
-            match = matches[game_id]
-            map_key(match, 'championId', champ_mapper)
-            pretty_print(match)
-        except RitoPlsError:
-            logger.warning('Advertized game %s could not be fetched', game_id)
