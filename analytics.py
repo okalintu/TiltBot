@@ -1,10 +1,12 @@
+import logging
+import random
 from typing import List, Tuple
 from riotapi import MatchListApi, MatchApi, SummonerApi, RitoPlsError
 from riotdata import ChampionData
 from rediscache import RedisCache
-from utils import map_key
+from utils import map_key, LogMixin
 
-class GameAnalyzer:
+class GameAnalyzer(LogMixin):
 
     def __init__(self, summoner_name):
         self.summoner_name = summoner_name
@@ -32,24 +34,16 @@ class GameAnalyzer:
         match_list = MatchListApi().get(account_id)['matches']
         game_ids = [match['gameId'] for match in match_list]
 
-
-        def champ_mapper(i):
-            try:
-                return champions[i]
-            except ValueError:
-                return i
-
         for game_id in game_ids:
             try:
                 match = matches[game_id]
-                map_key(match, 'championId', champ_mapper)
+                map_key(match, 'championId', lambda i: champions.get(i, i))
                 return match                
             except RitoPlsError:
                 continue
         raise RitoPlsError(f'No games for {self.summoner_name} found')
 
-   
-class Player:
+class Player(LogMixin):
     dog_champs = {'Evelynn', 'Talon', 'Master Yi', 'Twitch'}
 
     def __init__(self, source: dict):
@@ -61,6 +55,7 @@ class Player:
         self.largest_multikill = source['stats']['largestMultiKill']
         self.team = source['teamId']
         self.gold = source['stats']['goldEarned']
+        self.lane = source['timeline']['lane']
         self.role = source['timeline']['role']
         self.summoner_name = source['summoner_name']
         
@@ -70,7 +65,7 @@ class Player:
         except (KeyError, TypeError):
             self.champion = 'Unknown'
             self.champion_tags = set()
-    
+
     def __str__(self):
         return self.champion
 
@@ -81,7 +76,8 @@ class Player:
         return 'Support' in self.champion_tags
 
     def is_troll_support(self):
-        return self.role == 'SUPPORT' and not self.is_support()
+        is_troll = self.role == 'DUO_SUPPORT' and not self.is_support()
+        return is_troll
 
     @property
     def kd(self):
@@ -99,7 +95,10 @@ class Player:
     def was_fed(self):
         return self.kd > 2 and self.kills > 5
 
-class PlayerAnalyzer:
+
+class PlayerAnalyzer(LogMixin):
+    ok_threshold = -1
+    good_threshold = 5
 
     def __init__(self, summoner_name, game):
         self.game = game
@@ -108,9 +107,9 @@ class PlayerAnalyzer:
         self.summoner_name = summoner_name
         self.player = self.get_player(summoner_name)
         self.home_team, self.enemy_team = self.divide_to_teams()
-        self.bad_game_strs = [f'{self.summoner_name} had a rough game:']
-        self.neutral_game_strs = [f'{self.summoner_name} had ok game:']
-        self.good_game = [f'{self.summoner_name} had ok game:']
+        self.bad_game_strs = [f'{self.summoner_name} had a rough last game:']
+        self.neutral_game_strs = [f'{self.summoner_name} had ok last game:']
+        self.good_game_strs = [f'{self.summoner_name} had a good last game:']
 
     @staticmethod
     def move_summoner_names(game: dict) -> None:
@@ -152,7 +151,7 @@ class PlayerAnalyzer:
             positives.append('Player Won the game.')
         else:
             score -= 3
-            positives.append('Player Lost the game.')
+            negatives.append('Player Lost the game.')
 
         # positive influence
         
@@ -170,7 +169,7 @@ class PlayerAnalyzer:
             score -= 2
             negatives.append(f'Player died {self.player.deaths} times')
 
-        dog_champs = [player for player in self.enemy_team if player.is_dog_champ]
+        dog_champs = [player for player in self.enemy_team if player.is_dog_champ()]
         if dog_champs:
             score -= len(dog_champs)
             champ_names = [player.champion for player in dog_champs]
@@ -181,16 +180,31 @@ class PlayerAnalyzer:
                 score -=2
                 negatives.append(f'Enemies had fed {dog}')
 
-        troll_supports = [player for player in self.home_team if player.is_troll_support]
+        troll_supports = [player for player in self.home_team if player.is_troll_support()]
         if troll_supports:
             score -= 2
             support_names = [player.champion for player in troll_supports]
             negatives.append("Players team had troll support(s): {}".format(', '.join(support_names)))
 
-        if score < 0:
-            return negatives
-        return positives
+
+        if score < self.ok_threshold:
+            return self._format_response(random.choice(self.bad_game_strs), score, negatives)
+        if score < self.good_threshold:
+            return self._format_response(random.choice(self.neutral_game_strs), score, negatives + positives)
+        return self._format_response(random.choice(self.good_game_strs), score, positives)
+
+    @staticmethod
+    def _format_response(header, score, bulletpoints):
+        tag = "```"
+        bullet_str = ''
+        for bp in bulletpoints:
+            bullet_str+= f'    - {bp}\n'
+        return f'{tag}markdown\n{header}\nScore: {score}\n\n{bullet_str}{tag}'
 
 if __name__ == '__main__':
-    analyzer = GameAnalyzer('Hobiiri')
-    print(analyzer.analyze_last_game())
+    FORMAT = '%(asctime)-15s %(filename)15s:%(lineno)3d %(levelname)-8s %(message)s'
+    logging.basicConfig(format=FORMAT)
+    logger = logging.getLogger('TiltBot')
+    logger.setLevel(logging.DEBUG)
+    analyzer = GameAnalyzer('kokalintu')
+    logger.debug(analyzer.analyze_last_game())

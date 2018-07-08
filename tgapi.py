@@ -1,7 +1,9 @@
 import re
 import requests
+from utils import LogMixin
+from analytics import GameAnalyzer
 
-class IncomingTelegramCommand:
+class IncomingTelegramCommand(LogMixin):
     def __init__(self, msg_id : int, sender_id : int, chat_id: int, command : str):
         self.msg_id = msg_id
         self.sender_id = sender_id
@@ -10,7 +12,10 @@ class IncomingTelegramCommand:
 
     @classmethod
     def from_tg_dict(cls, item : dict):
-        msg = item['message']
+        if 'edited_message' in item:
+            msg = item['edited_message']
+        else:
+            msg = item['message']
         data = {
             'msg_id': msg['message_id'],
             'sender_id': msg['from']['id'],
@@ -22,7 +27,7 @@ class IncomingTelegramCommand:
     def __str__(self):
         return f'Chat: {self.chat_id}, Command: {self.command}'
 
-class BaseCommandHandler:
+class BaseCommandHandler(LogMixin):
     command = '/hello'
 
     def __init__(self):
@@ -44,6 +49,7 @@ class BaseCommandHandler:
         data = {
             'chat_id': chat_id,
             'text': message, 
+            'parse_mode': 'Markdown'
         }
         requests.post(self.send_message_url, json=data)
 
@@ -58,7 +64,12 @@ class TempHandler(BaseCommandHandler):
             err = 'Sorry. could not parse summoner name. usage: /temp <summoner_name>'
             return self._send_message(message.chat_id, err)
         name = match.group('summoner_name')
-        msg = f'Requested temperature data with summoner name {name}. temp data is not functional yet :/'
+        analyzer = GameAnalyzer(name)
+        try:
+            msg = analyzer.analyze_last_game()
+        except Exception as exc:
+            msg = f'Requested game data with summoner name {name}. but something went wrong :/'
+            self.logger.error("Error: %s", exc)
         return self._send_message(message.chat_id, msg)
 
 

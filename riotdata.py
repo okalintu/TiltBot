@@ -1,8 +1,9 @@
 import json
 import redis
 from rediscache import SerializerMixin
+from utils import LogMixin
 
-class RiotData(SerializerMixin):
+class RiotData(LogMixin, SerializerMixin):
 
     redis_prefix = 'riot_data'
 
@@ -27,8 +28,16 @@ class RiotData(SerializerMixin):
         redis_key = self.get_redis_key(key)
         value = self.redis.get(redis_key)
         if value is None:
-            raise ValueError(f'Key {redis_key} not in redis')
+            errormsg = f'Key {redis_key} not in redis'
+            self.logger.debug(errormsg)
+            raise KeyError(errormsg)
         return self._deserialize(value)
+
+    def get(self, key, default=None):
+        try:
+            return self[key]
+        except KeyError:
+            return default
 
     def _upload_data(self, data):
         for key, item in data.items():
