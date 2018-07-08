@@ -15,7 +15,7 @@ class SerializerMixin:
 
 
 class RedisCache(SerializerMixin):
-    def __init__(self, prefix, get_value, expire_time=None, host='127.0.0.1', port=6379, db=0):
+    def __init__(self, prefix, get_value, expire_time=None, db=0):
         self.logger = logging.getLogger('TiltBot')
         self.redis = redis.Redis(unix_socket_path='/tmp/redis.sock', db=db)
         self.prefix = prefix
