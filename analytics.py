@@ -78,6 +78,8 @@ class Player(LogMixin):
         return 'Support' in self.champion_tags
 
     def is_troll_support(self):
+        if self.champion == 'Unknown':
+            return False
         is_troll = self.role == 'DUO_SUPPORT' and not self.is_support()
         return is_troll
 
@@ -164,7 +166,7 @@ class PlayerAnalyzer(LogMixin):
             positives.append(f'Player Had largest multikill of {self.player.largest_multikill}')
         
         if self.player.was_fed:
-            score +=19
+            score -= -1**self.player.win * 19
             positives.append(f'Player Was fed with stats {self.player.kills}/{self.player.deaths}/{self.player.assists}')
 
         # negative influence
@@ -189,6 +191,18 @@ class PlayerAnalyzer(LogMixin):
             support_names = [player.champion for player in troll_supports]
             negatives.append("Players team had troll support(s): {}".format(', '.join(support_names)))
 
+        inting_teammates = []
+        for player in self.home_team:
+            if player.inted and not player == self.player:
+                inting_teammates.append(player)
+
+        for player in inting_teammates:
+            score -= 24
+            negatives.append('Player had inting {}({}/{}/{}) on their team'.format(
+                player.champion,
+                player.kills,
+                player.deaths,
+                player.assists))
 
         # non text factors
         score += 3*self.player.kills
