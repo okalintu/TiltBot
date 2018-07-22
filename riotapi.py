@@ -53,7 +53,7 @@ class RiotApi(LogMixin):
         return self._decode_response(resp.content)
 
     def _load_api_key(self):
-        with open('ritoapi.key') as f:
+        with open('/keys/ritoapi.key') as f:
             return f.read().strip()
     
     def _get_backoff_time(self, resp) -> int:

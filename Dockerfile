@@ -1,6 +1,7 @@
 FROM python:3.7-alpine
 
 RUN mkdir /code
+RUN mkdir /keys
 COPY . /code
 WORKDIR /code
 

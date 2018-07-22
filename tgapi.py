@@ -31,7 +31,7 @@ class BaseCommandHandler(LogMixin):
     command = '/hello'
 
     def __init__(self):
-        with open('tgapi.key') as f:
+        with open('/keys/tgapi.key') as f:
             token = f.read().strip()
         self.send_message_url = f'https://api.telegram.org/bot{token}/sendMessage'
 
