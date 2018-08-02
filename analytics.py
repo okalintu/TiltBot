@@ -13,10 +13,10 @@ class GameAnalyzer(LogMixin):
     def __init__(self, summoner_name):
         self.summoner_name = summoner_name
 
-    def analyze_last_game(self):
+    def analyze_last_game(self, raw=False):
         match_data = self._get_last_game()
         analyzer = PlayerAnalyzer(self.summoner_name, match_data)
-        return analyzer.analyze()
+        return analyzer.analyze(raw)
 
     def _get_last_game(self):
         # Initialize apis
@@ -146,7 +146,7 @@ class PlayerAnalyzer(LogMixin):
             team_list.append(player)
         return home_team, enemy_team
 
-    def analyze(self):
+    def analyze(self, raw=False):
         score = 0
         positives = []
         negatives = []
@@ -210,6 +210,9 @@ class PlayerAnalyzer(LogMixin):
         score -= 4*self.player.deaths
 
         temp = self._calculate_temperature(score)
+        if raw:
+            stats = f"{self.player.kills}/{self.player.deaths}/{self.player.assists}"
+            return (temp, stats, negatives, positives)
         if score < self.ok_threshold:
             return self._format_response(random.choice(self.bad_game_strs), temp, negatives)
         if score < self.good_threshold:

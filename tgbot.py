@@ -1,7 +1,9 @@
 import logging
+import json
 from flask import Flask, request
 from tgapi import IncomingTelegramCommand, CommandDelegator
 from tgapi import BaseCommandHandler, TempHandler
+from analytics import GameAnalyzer
 app = Flask(__name__)
 
 command_delegator = CommandDelegator()
@@ -27,3 +29,13 @@ def botmain():
         return ""
     command_delegator.delegate_command(cmd)
     return ""
+
+@app.route('/tgbot/current_temps', methods=['GET'])
+def temp_query():
+    persons = ['kokalintu', 'Wooble125', 'Hobiiri', 'Turtana', 'MiiQQ', 'Yoijimbo']
+    stats = {}
+    for person in persons:
+        analyzer = GameAnalyzer(person)
+        stats[person] = analyzer.analyze_last_game(raw=True)
+
+    return json.dumps(stats)
