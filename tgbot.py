@@ -32,7 +32,7 @@ def botmain():
 
 @app.route('/tgbot/current_temps', methods=['GET'])
 def temp_query():
-    persons = ['kokalintu', 'Wooble125', 'Hobiiri', 'Turtana', 'MiiQQ', 'Yoijimbo']
+    persons = ['kokalintu', 'Wooble125', 'Hobiiri', 'Turtana', 'MiiQQ', 'Yoijimbo', 'Tatoma']
     stats = {}
     for person in persons:
         analyzer = GameAnalyzer(person)
