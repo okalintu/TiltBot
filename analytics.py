@@ -236,5 +236,5 @@ if __name__ == '__main__':
     logging.basicConfig(format=FORMAT)
     logger = logging.getLogger('TiltBot')
     logger.setLevel(logging.DEBUG)
-    analyzer = GameAnalyzer('kokalintu')
+    analyzer = GameAnalyzer('foobar')
     logger.debug(analyzer.analyze_last_game())

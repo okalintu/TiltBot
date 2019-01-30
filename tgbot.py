@@ -30,12 +30,3 @@ def botmain():
     command_delegator.delegate_command(cmd)
     return ""
 
-@app.route('/tgbot/current_temps', methods=['GET'])
-def temp_query():
-    persons = ['kokalintu', 'Wooble125', 'Hobiiri', 'Turtana', 'MiiQQ', 'Yoijimbo', 'Tatoma']
-    stats = {}
-    for person in persons:
-        analyzer = GameAnalyzer(person)
-        stats[person] = analyzer.analyze_last_game(raw=True)
-
-    return json.dumps(stats)
