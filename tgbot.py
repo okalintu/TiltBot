@@ -14,12 +14,14 @@ logging.basicConfig(format=FORMAT)
 logger = logging.getLogger('TiltBot')
 logger.setLevel(logging.DEBUG)
 
+with open("keys/hook.key") as f:
+    hook = f.read().strip()
 
 @app.route('/tgbot/')
 def main():
     return '<h1>Blip!</h1>'
 
-@app.route('/tgbot/xWunSf50L2sRTjAIMd8I/', methods=['POST'])
+@app.route('/tgbot/{}/'.format(hook), methods=['POST'])
 def botmain():
     raw_data = request.get_json()
     try:
