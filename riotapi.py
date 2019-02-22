@@ -69,16 +69,16 @@ class RiotApi(LogMixin):
         return {}
 
 class SummonerApi(RiotApi):
-    api_url = 'https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'
+    api_url = 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'
 
 class MatchListApi(RiotApi):
-    api_url = 'https://euw1.api.riotgames.com/lol/match/v3/matchlists/by-account/'
+    api_url = 'https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/'
 
     def get_query_params(self):
         return [('queue', 400), ('queue', 420), ('queue', 440)]
 
 class MatchApi(RiotApi):
-    api_url = 'https://euw1.api.riotgames.com/lol/match/v3/matches/'
+    api_url = 'https://euw1.api.riotgames.com/lol/match/v4/matches/'
 
 class ChampionApi(RiotApi):
-    api_url = 'https://euw1.api.riotgames.com/lol/static-data/v3/champions/'
+    api_url = 'https://euw1.api.riotgames.com/lol/static-data/v4/champions/'
